@@ -86,6 +86,7 @@
     <Compile Include="Assets\Scripts\Server\Main\AppMain.cs" />
     <Compile Include="Assets\Scripts\Server\Main\ServerMain.cs" />
     <Compile Include="Assets\Scripts\Server\Protocol\ProtocolConst.cs" />
+    <Compile Include="Assets\Scripts_2\ScrollList.cs" />
     <Compile Include="Assets\Shader\PolyImage.cs" />
   </ItemGroup>
   <ItemGroup>
