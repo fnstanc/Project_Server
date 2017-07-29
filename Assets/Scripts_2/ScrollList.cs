@@ -42,13 +42,13 @@ public class ScrollList : MonoBehaviour
     //初始化布局
     void initLayout()
     {
-        setListInfo(10, 20);
+        setListInfo(7, 20);
         rect = this.GetComponent<ScrollRect>();
         bar = rect.verticalScrollbar;
         vive = this.transform.Find("vive").GetComponent<RectTransform>();
         content = this.transform.Find("vive/content").GetComponent<RectTransform>();
         item = this.transform.Find("vive/content/item").gameObject;
-        itemHeight = item.GetComponent<RectTransform>().rect.height;
+        itemHeight = item.GetComponent<RectTransform>().sizeDelta.y;
 
         for (int i = 0; i < itemCount; i++)
         {
@@ -58,8 +58,10 @@ public class ScrollList : MonoBehaviour
         }
         itemLst.Add(item.GetComponent<RectTransform>());
         item.gameObject.name = itemCount.ToString();
-
-        content.sizeDelta = new Vector2(content.sizeDelta.x, (dataLst.Count - 1) * itemHeight + itemLst.Count * itemSpacing + vive.sizeDelta.y);
+        float h = dataLst.Count * itemHeight + Mathf.Ceil(vive.sizeDelta.y / (itemHeight + itemSpacing)) * itemSpacing;
+        Debug.Log(" dataLst.Coun " + dataLst.Count + "   itemHeight :" + itemHeight + "    h :" + dataLst.Count * itemHeight);
+        Debug.Log("vive.sizeDelta.y: " + vive.sizeDelta.y + "       (vive.sizeDelta.y / itemHeight) : " + Mathf.Ceil(vive.sizeDelta.y / (itemHeight + itemSpacing)) + "   itemSpacing:  " + itemSpacing);
+        content.sizeDelta = new Vector2(content.sizeDelta.x, h);
         bar.value = 1;
         currVal = bar.value;
         lastVal = bar.value;
@@ -159,7 +161,7 @@ public class ScrollList : MonoBehaviour
     private List<ItemData> dataLst = new List<ItemData>();
     private void initData()
     {
-        for (int i = 0; i < 50; i++)
+        for (int i = 0; i < 15; i++)
         {
             ItemData dt = new ItemData();
             dt.name = "名字" + i;
